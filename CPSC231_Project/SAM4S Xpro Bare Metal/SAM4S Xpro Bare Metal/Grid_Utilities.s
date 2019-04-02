@@ -5,6 +5,10 @@
 .equ ON,    1
 
 
+/*
+	Initializes colours and IO pins by setting direction.
+
+*/
 .thumb_func 
 .global init
 init: 
@@ -118,15 +122,50 @@ pop {r0,r2,r9,r12,pc}
 		
 	As stored in the grid it will have the format [0,0,colour], colour [r1,g1,b1,r0,g0,b0]
 
-	Byte = 
-
 */
 .thumb_func 
 .global set_pixel
 set_pixel:
-push {r0,r1,r2,lr}
+push {r0,r1,r2,r3,lr}
+cmp r6, #1
+beq gohere
+
 cmp r9, #16
-blt case1		// y < 16
+blt case1		
+sub r0, r9, #16	// y >= 16
+mov r1, #32
+mul r0, r0, r1
+add r0, r8
+ldr r2, =0x20000000
+ldrb r3, [r2,r0]
+and r3, 0x17 // so that r1 actually can change value of 4th bit
+and r1, #0
+
+orr r1, r10
+
+lsl r1, r1, #3
+orr r1, r3
+strb r1, [r2,r0]
+b done
+
+case1: // y < 16
+mov r1, #32
+mul r0, r9, r1
+add r0, r8
+and r1, 0 
+orr r1, r10
+ldr r2, =0x20000000
+ldrb r3, [r2,r0]
+and r3, 0x1E
+orr r1, r3
+strb r1, [r2,r0]
+b done
+
+gohere: 
+
+
+cmp r9, #16
+blt case1b		
 sub r0, r9, #16	// y >= 16
 mov r1, #32
 mul r0, r0, r1
@@ -135,23 +174,36 @@ add r0, r8
 and r1, 0 
 orr r1, r10
 ldr r2, =0x20000000
-lsl r1, r1, #3
+lsl r1, r1, #4
+ldrb r3, [r2,r0]
+and r3, 0x0F
+orr r1, r3
 strb r1, [r2,r0]
 b done
 
-case1: 
+case1b: // y < 16
 mov r1, #32
 mul r0, r9, r1
 add r0, r8
 and r1, 0 
 orr r1, r10
 ldr r2, =0x20000000
+ldrb r3, [r2,r0]
+and r3, 0x1D
+
+lsl r1, r1, #1
+orr r1, r3
 strb r1, [r2,r0]
 
+
 done:
+pop {r0,r1,r2,r3,pc}
+
+
+.thumb_func 
+.global set_pixel_init
+set_pixel_init:
+push {r0,r1,r2,lr}
+
 pop {r0,r1,r2,pc}
-
-
-
-
 

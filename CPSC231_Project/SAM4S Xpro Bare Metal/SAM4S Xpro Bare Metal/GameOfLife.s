@@ -1,6 +1,7 @@
 .syntax unified 
 
 /*
+Output Pins:
 
 R0 -- PIOA 17 
 G0 -- PIOA 24
@@ -37,29 +38,96 @@ ldr r9, =grid // Loads grid to avoid optimization
 bl init
 
 bl load_grid
+mov r6, #0 // {r0} must be set to zero at the start
 
-
-mov r8, #10
-mov r9, #10
-mov r10, #7
-bl set_pixel
-
-mov r8, #11
-mov r9, #10
-mov r10, #7
-bl set_pixel
-
-mov r8, #12
-mov r9, #10
-mov r10, #7
+mov r8, #4
+mov r9, #25
+mov r10, #1
 bl set_pixel
 
 
+mov r8, #5
+mov r9, #25
+mov r10, #1
+bl set_pixel
+
+
+
+mov r8, #6
+mov r9, #25
+mov r10, #1
+bl set_pixel
+
+/*
+mov r8, #15
+mov r9, #15
+mov r10, #1
+bl set_pixel
+
+mov r8, #16
+mov r9, #15
+mov r10, #1
+bl set_pixel
+
+mov r8, #17
+mov r9, #15
+mov r10, #1
+bl set_pixel
+
+mov r8, #15
+mov r9, #16
+mov r10, #1
+bl set_pixel
+
+mov r8, #17
+mov r9, #16
+mov r10, #1
+bl set_pixel
+
+mov r8, #15
+mov r9, #17
+mov r10, #1
+bl set_pixel
+
+mov r8, #16
+mov r9, #17
+mov r10, #1
+bl set_pixel
+
+mov r8, #17
+mov r9, #17
+mov r10, #1
+bl set_pixel
+
+mov r8, #15
+mov r9, #18
+mov r10, #1
+bl set_pixel
+
+mov r8, #16
+mov r9, #18
+mov r10, #1
+bl set_pixel*/
+
+update_grid:
+cmp r6, #0
+beq set_to_1
+mov r6, #0
+b rickroll
+set_to_1:
+mov r6, #1
+rickroll:
+mov r12, 0
+bl update
 
 
 main2:
+mov r11, 0xFF
+cmp r12, r11
+beq update_grid
+add r12, #1
+
 mov r7, #0
-bl update
 loop1: 
 cmp r7, #16
 beq end1
@@ -72,19 +140,20 @@ mul r4, r7, r4  // r4 = row * matrix_width = row*32
 		cmp r3, #32
 		beq end2
 		
-		add r6, r4, r3
+		add r5, r4, r3
 		
 		ldr r1,  =0x20000000 
-		ldrb r1, [r1,r6]
+		ldrb r1, [r1,r5]
 
-
+		mov r9, r6
 		mov r2, r1
+		lsr r2,r2, r9
 		and r2, 0x01
 		bl set_r0
 		
-	
+		add r9, r6, #3
 		mov r2, r1
-		lsr r2,r2, #3
+		lsr r2,r2, r9
 		and r2, #1
 		bl set_r1
 	
@@ -148,8 +217,8 @@ b main2
 .thumb_func
 .global update 
 update:
-push {r0,r1,r8,r9,r10,lr}
-mov r0, 1
+push {r0,r1,r2,r3,r8,r9,r10,lr}
+mov r0, #1// CHANGE BACK TO 1 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 mov r3, 1
 /*
 	 {r0} outer loop counter: row
@@ -161,21 +230,47 @@ mov r3, 1
 
 update_loop1: /////////////////////////////////////////
 
-	cmp r0, #31
+	cmp r0, #30
 	beq update_end1
+	mov r3, #1
 
 	update_loop2: /////////////////////////////////////////
-		cmp r3, #31
+		cmp r3, #30
 		beq update_end2
 
 			// Find number of neighbours alive
-			/*mov r2, #0
+			mov r2, #0
+			// r5 Y
+			// r4 X
+			// Top Left
 
+				sub r5, r0, #1
+				sub r4, r3, #1
+				bl isAlive
+				add r2, r4
 			// Above 
 				sub r5, r0, #1
 				mov r4, r3
 				bl isAlive
 				add r2, r4 
+			// Top Right 
+				sub r5, r0, #1
+				add r4, r3, #1
+				bl isAlive
+				add r2, r4
+
+			// Bottom Left
+				add r5, r0, #1
+				sub r4, r3, #1
+				bl isAlive
+				add r2, r4
+
+			// Bottom Right 
+				add r5, r0, #1
+				add r4, r3, #1
+				bl isAlive
+				add r2, r4
+
 			// Below
 				add r5, r0, #1
 				mov r4, r3
@@ -197,16 +292,21 @@ update_loop1: /////////////////////////////////////////
 				mov r4, r3
 				bl isAlive
 				
-				cmp r4, #3
+				cmp r4, #1
 				beq square_is_alive // square is alive
 									// square is dead
 				cmp r2, #3
 				beq dead_eq3
 				// No cases apply, leave node as is
+
+				mov r8, r3
+				mov r9, r0
+				mov r10, 0
+				bl set_pixel
 				b  end_of_loop
 
 				dead_eq3: 
-					mov r8, r1
+					mov r8, r3
 					mov r9, r0
 					mov r10, 1
 					bl set_pixel
@@ -218,6 +318,13 @@ update_loop1: /////////////////////////////////////////
 						blt alive_lt2 
 					cmp r2, #3
 						bgt	alive_gt3
+
+						// keep the pixel alive
+						mov r8, r3
+						mov r9, r0
+						mov r10, 1
+						bl set_pixel
+						b end_of_loop
 
 				alive_lt2:
 					mov r8, r3
@@ -232,12 +339,9 @@ update_loop1: /////////////////////////////////////////
 					mov r9, r0
 					mov r10, 0
 					bl set_pixel
-					b end_of_loop*/
+					b end_of_loop
 
-					mov r8, r3
-					mov r9, r0
-					mov r10, 0
-					bl set_pixel
+				
 
 		end_of_loop:
 		add r3, #1
@@ -248,12 +352,12 @@ update_loop1: /////////////////////////////////////////
 	b update_loop1
 update_end1: /////////////////////////////////////////
 
-pop {r0,r1,r8,r9,r10,pc}
+pop {r0,r1,r2,r3,r8,r9,r10,pc}
 
 
 
 /*
-	Given a node (x,y) it reports if colour > 0 (is the LED on).
+	Given a node (x,y) it reports if colour > 0 (is the).
 	ARGS:
 	 {r4} -- x
 	 {r5} -- y 
@@ -270,28 +374,59 @@ pop {r0,r1,r8,r9,r10,pc}
 isAlive:
 
 push {r0,r1,r2,lr}
+cmp r6, #0
+beq r6_eq_0
+
+
 cmp r5, #16
-blt isAlive_case1		// y < 16
+blt isAlive_case1a		// y < 16
 sub r0, r5, #16			// y >= 16
 mov r1, #32
 mul r0, r0, r1
-add r0, r8
+add r0, r4
 ldr r2, =0x20000000
 ldrb r1, [r2,r0]
 lsr r1, r1, #3
-and r1, r1, 0x01
+and r1, r1, 0x01 // most signifigant bit
 mov r4, r1
 b isAlive_done
 
-isAlive_case1: 
+isAlive_case1a: 
 mov r1, #32
-mul r0, r9, r1
-add r0, r8
+mul r0, r5, r1
+add r0, r4
 
 ldr r2, =0x20000000
 ldrb r1, [r2,r0]
 and r1, 0x01
 mov r4,r1
+b isAlive_done
+r6_eq_0: ////////////////////////////////////
+
+cmp r5, #16
+blt isAlive_case1b		// y < 16
+sub r0, r5, #16			// y >= 16
+mov r1, #32
+mul r0, r0, r1
+add r0, r4
+ldr r2, =0x20000000
+ldrb r1, [r2,r0]
+lsr r1, r1, #4
+and r1, r1, 0x01 // most signifigant bit
+mov r4, r1
+b isAlive_done
+
+isAlive_case1b: 
+mov r1, #32
+mul r0, r5, r1
+add r0, r4
+ldr r2, =0x20000000
+ldrb r1, [r2,r0]
+lsr r1, r1, #1
+and r1, 0x01
+mov r4,r1
+
+
 
 isAlive_done:
 pop {r0,r1,r2,pc}
