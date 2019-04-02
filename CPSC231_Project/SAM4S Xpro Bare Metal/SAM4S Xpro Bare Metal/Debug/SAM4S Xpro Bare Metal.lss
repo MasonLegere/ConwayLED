@@ -1,0 +1,1224 @@
+
+SAM4S Xpro Bare Metal.elf:     file format elf32-littlearm
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000058c  00400000  00400000  00010000  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .relocate     00000828  20000000  0040058c  00020000  2**3
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          0000001c  20000828  00400db4  00020828  2**2
+                  ALLOC
+  3 .stack        00003004  20000844  00400dd0  00020828  2**0
+                  ALLOC
+  4 .ARM.attributes 0000002a  00000000  00000000  00020828  2**0
+                  CONTENTS, READONLY
+  5 .debug_line   0000029a  00000000  00000000  00020852  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000298  00000000  00000000  00020aec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000064  00000000  00000000  00020d84  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_aranges 000000a0  00000000  00000000  00020de8  2**3
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  000000d8  00000000  00000000  00020e88  2**2
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00400000 <_sfixed>:
+  400000:	20003848 	.word	0x20003848
+  400004:	0040011d 	.word	0x0040011d
+
+00400008 <__do_global_dtors_aux>:
+  400008:	b510      	push	{r4, lr}
+  40000a:	4c05      	ldr	r4, [pc, #20]	; (400020 <__do_global_dtors_aux+0x18>)
+  40000c:	7823      	ldrb	r3, [r4, #0]
+  40000e:	b933      	cbnz	r3, 40001e <__do_global_dtors_aux+0x16>
+  400010:	4b04      	ldr	r3, [pc, #16]	; (400024 <__do_global_dtors_aux+0x1c>)
+  400012:	b113      	cbz	r3, 40001a <__do_global_dtors_aux+0x12>
+  400014:	4804      	ldr	r0, [pc, #16]	; (400028 <__do_global_dtors_aux+0x20>)
+  400016:	f3af 8000 	nop.w
+  40001a:	2301      	movs	r3, #1
+  40001c:	7023      	strb	r3, [r4, #0]
+  40001e:	bd10      	pop	{r4, pc}
+  400020:	20000828 	.word	0x20000828
+  400024:	00000000 	.word	0x00000000
+  400028:	0040058c 	.word	0x0040058c
+
+0040002c <frame_dummy>:
+  40002c:	4b08      	ldr	r3, [pc, #32]	; (400050 <frame_dummy+0x24>)
+  40002e:	b510      	push	{r4, lr}
+  400030:	b11b      	cbz	r3, 40003a <frame_dummy+0xe>
+  400032:	4908      	ldr	r1, [pc, #32]	; (400054 <frame_dummy+0x28>)
+  400034:	4808      	ldr	r0, [pc, #32]	; (400058 <frame_dummy+0x2c>)
+  400036:	f3af 8000 	nop.w
+  40003a:	4808      	ldr	r0, [pc, #32]	; (40005c <frame_dummy+0x30>)
+  40003c:	6803      	ldr	r3, [r0, #0]
+  40003e:	b903      	cbnz	r3, 400042 <frame_dummy+0x16>
+  400040:	bd10      	pop	{r4, pc}
+  400042:	4b07      	ldr	r3, [pc, #28]	; (400060 <frame_dummy+0x34>)
+  400044:	2b00      	cmp	r3, #0
+  400046:	d0fb      	beq.n	400040 <frame_dummy+0x14>
+  400048:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+  40004c:	4718      	bx	r3
+  40004e:	bf00      	nop
+  400050:	00000000 	.word	0x00000000
+  400054:	2000082c 	.word	0x2000082c
+  400058:	0040058c 	.word	0x0040058c
+  40005c:	0040058c 	.word	0x0040058c
+  400060:	00000000 	.word	0x00000000
+
+00400064 <set_r0>:
+// RED
+// Top 16 rows
+.thumb_func 
+.global set_r0
+set_r0: 
+	push {r0,r1,lr}
+  400064:	b503      	push	{r0, r1, lr}
+	mov r0, r2
+  400066:	4610      	mov	r0, r2
+	mov r1, #17
+  400068:	f04f 0111 	mov.w	r1, #17
+	bl pioa_level_set 
+  40006c:	f000 f9ba 	bl	4003e4 <pioa_level_set>
+	pop {r0,r1,pc}
+  400070:	bd03      	pop	{r0, r1, pc}
+
+00400072 <set_g0>:
+// GREEN
+// Top 16 rows
+.thumb_func 
+.global set_g0
+set_g0: 
+	push {r0,r1,lr}
+  400072:	b503      	push	{r0, r1, lr}
+	mov r0, r2
+  400074:	4610      	mov	r0, r2
+	mov r1, #24
+  400076:	f04f 0118 	mov.w	r1, #24
+	bl pioa_level_set 
+  40007a:	f000 f9b3 	bl	4003e4 <pioa_level_set>
+	pop {r0,r1,pc}
+  40007e:	bd03      	pop	{r0, r1, pc}
+
+00400080 <set_b0>:
+// BLUE
+// Top 16 rows
+.thumb_func 
+.global set_b0
+set_b0: 
+	push {r0,r1,lr}
+  400080:	b503      	push	{r0, r1, lr}
+	mov r0, r2
+  400082:	4610      	mov	r0, r2
+	mov r1, #23
+  400084:	f04f 0117 	mov.w	r1, #23
+	bl pioa_level_set 
+  400088:	f000 f9ac 	bl	4003e4 <pioa_level_set>
+	pop {r0,r1,pc}
+  40008c:	bd03      	pop	{r0, r1, pc}
+
+0040008e <set_r1>:
+// RED 
+// Bottom 16 rows
+.thumb_func 
+.global set_r1
+set_r1: 
+	push {r0,r1,lr}
+  40008e:	b503      	push	{r0, r1, lr}
+	mov r0, r2
+  400090:	4610      	mov	r0, r2
+	mov r1, #1
+  400092:	f04f 0101 	mov.w	r1, #1
+	bl pioa_level_set 
+  400096:	f000 f9a5 	bl	4003e4 <pioa_level_set>
+	pop {r0,r1,pc}
+  40009a:	bd03      	pop	{r0, r1, pc}
+
+0040009c <set_g1>:
+// GREEN 
+// Bottom 16 rows
+.thumb_func 
+.global set_g1
+set_g1: 
+	push {r0,r1,lr}
+  40009c:	b503      	push	{r0, r1, lr}
+	mov r0, r2
+  40009e:	4610      	mov	r0, r2
+	mov r1, #3
+  4000a0:	f04f 0103 	mov.w	r1, #3
+	bl pioa_level_set 
+  4000a4:	f000 f99e 	bl	4003e4 <pioa_level_set>
+	pop {r0,r1,pc}
+  4000a8:	bd03      	pop	{r0, r1, pc}
+
+004000aa <set_b1>:
+// BLUE 
+// Bottom 16 rows
+.thumb_func 
+.global set_b1
+set_b1: 
+	push {r0,r1,lr}
+  4000aa:	b503      	push	{r0, r1, lr}
+	mov r0, r2
+  4000ac:	4610      	mov	r0, r2
+	mov r1, #21
+  4000ae:	f04f 0115 	mov.w	r1, #21
+	bl pioa_level_set 
+  4000b2:	f000 f997 	bl	4003e4 <pioa_level_set>
+	pop {r0,r1,pc}
+  4000b6:	bd03      	pop	{r0, r1, pc}
+
+004000b8 <set_a0>:
+	specify between the top and bottom half of the matrix
+*/
+.thumb_func 
+.global set_a0
+set_a0: 
+	push {r0,r1,lr}
+  4000b8:	b503      	push	{r0, r1, lr}
+	mov r0, r2
+  4000ba:	4610      	mov	r0, r2
+	mov r1, #25
+  4000bc:	f04f 0119 	mov.w	r1, #25
+	bl pioc_level_set 
+  4000c0:	f000 f9c0 	bl	400444 <pioc_level_set>
+	pop {r0,r1,pc}
+  4000c4:	bd03      	pop	{r0, r1, pc}
+
+004000c6 <set_a1>:
+
+.thumb_func 
+.global set_a1
+set_a1: 
+	push {r0,r1,lr}
+  4000c6:	b503      	push	{r0, r1, lr}
+	mov r0, r2
+  4000c8:	4610      	mov	r0, r2
+	mov r1, #24
+  4000ca:	f04f 0118 	mov.w	r1, #24
+	bl pioc_level_set 
+  4000ce:	f000 f9b9 	bl	400444 <pioc_level_set>
+	pop {r0,r1,pc}
+  4000d2:	bd03      	pop	{r0, r1, pc}
+
+004000d4 <set_a2>:
+
+.thumb_func 
+.global set_a2
+set_a2: 
+	push {r0,r1,lr}
+  4000d4:	b503      	push	{r0, r1, lr}
+	mov r0, r2
+  4000d6:	4610      	mov	r0, r2
+	mov r1, #19
+  4000d8:	f04f 0113 	mov.w	r1, #19
+	bl pioc_level_set 
+  4000dc:	f000 f9b2 	bl	400444 <pioc_level_set>
+	pop {r0,r1,pc}
+  4000e0:	bd03      	pop	{r0, r1, pc}
+
+004000e2 <set_a3>:
+
+
+.thumb_func 
+.global set_a3
+set_a3: 
+	push {r0,r1,lr}
+  4000e2:	b503      	push	{r0, r1, lr}
+	mov r0, r2
+  4000e4:	4610      	mov	r0, r2
+	mov r1, #26
+  4000e6:	f04f 011a 	mov.w	r1, #26
+	bl pioc_level_set 
+  4000ea:	f000 f9ab 	bl	400444 <pioc_level_set>
+	pop {r0,r1,pc}
+  4000ee:	bd03      	pop	{r0, r1, pc}
+
+004000f0 <set_clk>:
+
+// Clock edge used to shift colour into column 
+.thumb_func 
+.global set_clk
+set_clk: 
+	push {r0,r1,lr}
+  4000f0:	b503      	push	{r0, r1, lr}
+	mov r0, r2
+  4000f2:	4610      	mov	r0, r2
+	mov r1, #29
+  4000f4:	f04f 011d 	mov.w	r1, #29
+	bl pioc_level_set 
+  4000f8:	f000 f9a4 	bl	400444 <pioc_level_set>
+	pop {r0,r1,pc}
+  4000fc:	bd03      	pop	{r0, r1, pc}
+
+004000fe <set_stb>:
+
+// Latches new row into the shifter 
+.thumb_func 
+.global set_stb
+set_stb: 
+	push {r0,r1,lr}
+  4000fe:	b503      	push	{r0, r1, lr}
+	mov r0, r2
+  400100:	4610      	mov	r0, r2
+	mov r1, #21
+  400102:	f04f 0115 	mov.w	r1, #21
+	bl pioc_level_set 
+  400106:	f000 f99d 	bl	400444 <pioc_level_set>
+	pop {r0,r1,pc}
+  40010a:	bd03      	pop	{r0, r1, pc}
+
+0040010c <set_oe>:
+
+// Shifters new row after increment
+.thumb_func 
+.global set_oe
+set_oe: 
+	push {r0,r1,lr}
+  40010c:	b503      	push	{r0, r1, lr}
+	mov r0, r2
+  40010e:	4610      	mov	r0, r2
+	mov r1, #20
+  400110:	f04f 0114 	mov.w	r1, #20
+	bl pioc_level_set 
+  400114:	f000 f996 	bl	400444 <pioc_level_set>
+	pop {r0,r1,pc}
+  400118:	bd03      	pop	{r0, r1, pc}
+	...
+
+0040011c <main>:
+
+.section .text
+.thumb_func
+.global main
+main:
+ldr r9, =grid // Loads grid to avoid optimization
+  40011c:	f8df 9150 	ldr.w	r9, [pc, #336]	; 400270 <isAlive_done+0x4>
+bl init
+  400120:	f000 f8a8 	bl	400274 <init>
+
+bl load_grid
+  400124:	f000 f90e 	bl	400344 <load_grid>
+
+
+mov r8, #10
+  400128:	f04f 080a 	mov.w	r8, #10
+mov r9, #10
+  40012c:	f04f 090a 	mov.w	r9, #10
+mov r10, #7
+  400130:	f04f 0a07 	mov.w	sl, #7
+bl set_pixel
+  400134:	f000 f91a 	bl	40036c <set_pixel>
+
+mov r8, #11
+  400138:	f04f 080b 	mov.w	r8, #11
+mov r9, #10
+  40013c:	f04f 090a 	mov.w	r9, #10
+mov r10, #7
+  400140:	f04f 0a07 	mov.w	sl, #7
+bl set_pixel
+  400144:	f000 f912 	bl	40036c <set_pixel>
+
+mov r8, #12
+  400148:	f04f 080c 	mov.w	r8, #12
+mov r9, #10
+  40014c:	f04f 090a 	mov.w	r9, #10
+mov r10, #7
+  400150:	f04f 0a07 	mov.w	sl, #7
+bl set_pixel
+  400154:	f000 f90a 	bl	40036c <set_pixel>
+
+00400158 <main2>:
+
+
+
+
+main2:
+mov r7, #0
+  400158:	f04f 0700 	mov.w	r7, #0
+bl update
+  40015c:	f000 f850 	bl	400200 <update>
+
+00400160 <loop1>:
+loop1: 
+cmp r7, #16
+  400160:	2f10      	cmp	r7, #16
+beq end1
+  400162:	d04c      	beq.n	4001fe <end1>
+mov r3, #0
+  400164:	f04f 0300 	mov.w	r3, #0
+
+mov r4, #32
+  400168:	f04f 0420 	mov.w	r4, #32
+mul r4, r7, r4  // r4 = row * matrix_width = row*32
+  40016c:	fb07 f404 	mul.w	r4, r7, r4
+
+00400170 <loop2>:
+
+	loop2: 
+		cmp r3, #32
+  400170:	2b20      	cmp	r3, #32
+		beq end2
+  400172:	d01b      	beq.n	4001ac <end2>
+		
+		add r6, r4, r3
+  400174:	eb04 0603 	add.w	r6, r4, r3
+		
+		ldr r1,  =0x20000000 
+  400178:	f04f 5100 	mov.w	r1, #536870912	; 0x20000000
+		ldrb r1, [r1,r6]
+  40017c:	5d89      	ldrb	r1, [r1, r6]
+
+
+		mov r2, r1
+  40017e:	460a      	mov	r2, r1
+		and r2, 0x01
+  400180:	f002 0201 	and.w	r2, r2, #1
+		bl set_r0
+  400184:	f7ff ff6e 	bl	400064 <set_r0>
+		
+	
+		mov r2, r1
+  400188:	460a      	mov	r2, r1
+		lsr r2,r2, #3
+  40018a:	ea4f 02d2 	mov.w	r2, r2, lsr #3
+		and r2, #1
+  40018e:	f002 0201 	and.w	r2, r2, #1
+		bl set_r1
+  400192:	f7ff ff7c 	bl	40008e <set_r1>
+	
+
+		mov r2, ON
+  400196:	f04f 0201 	mov.w	r2, #1
+		bl set_clk
+  40019a:	f7ff ffa9 	bl	4000f0 <set_clk>
+
+		mov r2, OFF
+  40019e:	f04f 0200 	mov.w	r2, #0
+		bl set_clk
+  4001a2:	f7ff ffa5 	bl	4000f0 <set_clk>
+
+		add r3, #1
+  4001a6:	f103 0301 	add.w	r3, r3, #1
+		b loop2
+  4001aa:	e7e1      	b.n	400170 <loop2>
+
+004001ac <end2>:
+	end2: 
+
+mov r2, ON
+  4001ac:	f04f 0201 	mov.w	r2, #1
+ bl set_oe
+  4001b0:	f7ff ffac 	bl	40010c <set_oe>
+	a1 = c
+	a2 = b
+	a3 = a
+*/
+
+and r2, r7, #1
+  4001b4:	f007 0201 	and.w	r2, r7, #1
+bl set_a0 
+  4001b8:	f7ff ff7e 	bl	4000b8 <set_a0>
+
+lsr r5, r7, #1
+  4001bc:	ea4f 0557 	mov.w	r5, r7, lsr #1
+and r2, r5, #1
+  4001c0:	f005 0201 	and.w	r2, r5, #1
+bl set_a1
+  4001c4:	f7ff ff7f 	bl	4000c6 <set_a1>
+
+lsr r5, r7, #2
+  4001c8:	ea4f 0597 	mov.w	r5, r7, lsr #2
+and  r2, r5, #1
+  4001cc:	f005 0201 	and.w	r2, r5, #1
+bl set_a2
+  4001d0:	f7ff ff80 	bl	4000d4 <set_a2>
+
+lsr r5, r7, #3
+  4001d4:	ea4f 05d7 	mov.w	r5, r7, lsr #3
+and r2, r5, #1
+  4001d8:	f005 0201 	and.w	r2, r5, #1
+bl set_a3
+  4001dc:	f7ff ff81 	bl	4000e2 <set_a3>
+
+
+mov r2, ON
+  4001e0:	f04f 0201 	mov.w	r2, #1
+bl set_stb
+  4001e4:	f7ff ff8b 	bl	4000fe <set_stb>
+
+mov r2, OFF
+  4001e8:	f04f 0200 	mov.w	r2, #0
+bl set_stb
+  4001ec:	f7ff ff87 	bl	4000fe <set_stb>
+
+mov r2, OFF
+  4001f0:	f04f 0200 	mov.w	r2, #0
+bl set_oe 
+  4001f4:	f7ff ff8a 	bl	40010c <set_oe>
+
+
+add r7, #1
+  4001f8:	f107 0701 	add.w	r7, r7, #1
+b loop1
+  4001fc:	e7b0      	b.n	400160 <loop1>
+
+004001fe <end1>:
+end1: 
+b main2 
+  4001fe:	e7ab      	b.n	400158 <main2>
+
+00400200 <update>:
+
+
+.thumb_func
+.global update 
+update:
+push {r0,r1,r8,r9,r10,lr}
+  400200:	e92d 4703 	stmdb	sp!, {r0, r1, r8, r9, sl, lr}
+mov r0, 1
+  400204:	f04f 0001 	mov.w	r0, #1
+mov r3, 1
+  400208:	f04f 0301 	mov.w	r3, #1
+
+0040020c <update_loop1>:
+*/
+
+
+update_loop1: /////////////////////////////////////////
+
+	cmp r0, #31
+  40020c:	281f      	cmp	r0, #31
+	beq update_end1
+  40020e:	d00d      	beq.n	40022c <update_end1>
+
+00400210 <update_loop2>:
+
+	update_loop2: /////////////////////////////////////////
+		cmp r3, #31
+  400210:	2b1f      	cmp	r3, #31
+		beq update_end2
+  400212:	d008      	beq.n	400226 <update_end2>
+					mov r9, r0
+					mov r10, 0
+					bl set_pixel
+					b end_of_loop*/
+
+					mov r8, r3
+  400214:	4698      	mov	r8, r3
+					mov r9, r0
+  400216:	4681      	mov	r9, r0
+					mov r10, 0
+  400218:	f04f 0a00 	mov.w	sl, #0
+					bl set_pixel
+  40021c:	f000 f8a6 	bl	40036c <set_pixel>
+
+00400220 <end_of_loop>:
+
+		end_of_loop:
+		add r3, #1
+  400220:	f103 0301 	add.w	r3, r3, #1
+		b update_loop2
+  400224:	e7f4      	b.n	400210 <update_loop2>
+
+00400226 <update_end2>:
+	update_end2: /////////////////////////////////////////
+
+	add r0, #1
+  400226:	f100 0001 	add.w	r0, r0, #1
+	b update_loop1
+  40022a:	e7ef      	b.n	40020c <update_loop1>
+
+0040022c <update_end1>:
+update_end1: /////////////////////////////////////////
+
+pop {r0,r1,r8,r9,r10,pc}
+  40022c:	e8bd 8703 	ldmia.w	sp!, {r0, r1, r8, r9, sl, pc}
+
+00400230 <isAlive>:
+*/
+.thumb_func 
+.global isAlive 
+isAlive:
+
+push {r0,r1,r2,lr}
+  400230:	b507      	push	{r0, r1, r2, lr}
+cmp r5, #16
+  400232:	2d10      	cmp	r5, #16
+blt isAlive_case1		// y < 16
+  400234:	db0f      	blt.n	400256 <isAlive_case1>
+sub r0, r5, #16			// y >= 16
+  400236:	f1a5 0010 	sub.w	r0, r5, #16
+mov r1, #32
+  40023a:	f04f 0120 	mov.w	r1, #32
+mul r0, r0, r1
+  40023e:	fb00 f001 	mul.w	r0, r0, r1
+add r0, r8
+  400242:	4440      	add	r0, r8
+ldr r2, =0x20000000
+  400244:	f04f 5200 	mov.w	r2, #536870912	; 0x20000000
+ldrb r1, [r2,r0]
+  400248:	5c11      	ldrb	r1, [r2, r0]
+lsr r1, r1, #3
+  40024a:	ea4f 01d1 	mov.w	r1, r1, lsr #3
+and r1, r1, 0x01
+  40024e:	f001 0101 	and.w	r1, r1, #1
+mov r4, r1
+  400252:	460c      	mov	r4, r1
+b isAlive_done
+  400254:	e00a      	b.n	40026c <isAlive_done>
+
+00400256 <isAlive_case1>:
+
+isAlive_case1: 
+mov r1, #32
+  400256:	f04f 0120 	mov.w	r1, #32
+mul r0, r9, r1
+  40025a:	fb09 f001 	mul.w	r0, r9, r1
+add r0, r8
+  40025e:	4440      	add	r0, r8
+
+ldr r2, =0x20000000
+  400260:	f04f 5200 	mov.w	r2, #536870912	; 0x20000000
+ldrb r1, [r2,r0]
+  400264:	5c11      	ldrb	r1, [r2, r0]
+and r1, 0x01
+  400266:	f001 0101 	and.w	r1, r1, #1
+mov r4,r1
+  40026a:	460c      	mov	r4, r1
+
+0040026c <isAlive_done>:
+
+isAlive_done:
+pop {r0,r1,r2,pc}
+  40026c:	bd07      	pop	{r0, r1, r2, pc}
+  40026e:	0000      	.short	0x0000
+
+.section .text
+.thumb_func
+.global main
+main:
+ldr r9, =grid // Loads grid to avoid optimization
+  400270:	20000000 	.word	0x20000000
+
+00400274 <init>:
+
+
+.thumb_func 
+.global init
+init: 
+push {lr}
+  400274:	b500      	push	{lr}
+
+	mov r0, #0
+  400276:	f04f 0000 	mov.w	r0, #0
+	mov r1, #17 
+  40027a:	f04f 0111 	mov.w	r1, #17
+	bl pioa_dir_set
+  40027e:	f000 f8a0 	bl	4003c2 <pioa_dir_set>
+
+	mov r0, #0
+  400282:	f04f 0000 	mov.w	r0, #0
+	mov r1, #24
+  400286:	f04f 0118 	mov.w	r1, #24
+	bl pioa_dir_set
+  40028a:	f000 f89a 	bl	4003c2 <pioa_dir_set>
+
+	mov r0, #0
+  40028e:	f04f 0000 	mov.w	r0, #0
+	mov r1, #23
+  400292:	f04f 0117 	mov.w	r1, #23
+	bl pioa_dir_set
+  400296:	f000 f894 	bl	4003c2 <pioa_dir_set>
+
+	mov r0, #0
+  40029a:	f04f 0000 	mov.w	r0, #0
+	mov r1, #1
+  40029e:	f04f 0101 	mov.w	r1, #1
+	bl pioa_dir_set
+  4002a2:	f000 f88e 	bl	4003c2 <pioa_dir_set>
+
+	mov r0, #0
+  4002a6:	f04f 0000 	mov.w	r0, #0
+	mov r1, #3
+  4002aa:	f04f 0103 	mov.w	r1, #3
+	bl pioa_dir_set
+  4002ae:	f000 f888 	bl	4003c2 <pioa_dir_set>
+
+	mov r0, #0
+  4002b2:	f04f 0000 	mov.w	r0, #0
+	mov r1, #21
+  4002b6:	f04f 0115 	mov.w	r1, #21
+	bl pioa_dir_set
+  4002ba:	f000 f882 	bl	4003c2 <pioa_dir_set>
+
+	mov r0, #0
+  4002be:	f04f 0000 	mov.w	r0, #0
+	mov r1, 25
+  4002c2:	f04f 0119 	mov.w	r1, #25
+	bl pioc_dir_set
+  4002c6:	f000 f8ac 	bl	400422 <pioc_dir_set>
+
+
+	mov r0, #0
+  4002ca:	f04f 0000 	mov.w	r0, #0
+	mov r1, #24
+  4002ce:	f04f 0118 	mov.w	r1, #24
+	bl pioc_dir_set
+  4002d2:	f000 f8a6 	bl	400422 <pioc_dir_set>
+
+	mov r0, #0
+  4002d6:	f04f 0000 	mov.w	r0, #0
+	mov r1, #19
+  4002da:	f04f 0113 	mov.w	r1, #19
+	bl pioc_dir_set
+  4002de:	f000 f8a0 	bl	400422 <pioc_dir_set>
+
+	mov r0, #0
+  4002e2:	f04f 0000 	mov.w	r0, #0
+	mov r1, #26
+  4002e6:	f04f 011a 	mov.w	r1, #26
+	bl pioc_dir_set
+  4002ea:	f000 f89a 	bl	400422 <pioc_dir_set>
+
+	mov r0, #0
+  4002ee:	f04f 0000 	mov.w	r0, #0
+	mov r1, #29
+  4002f2:	f04f 011d 	mov.w	r1, #29
+	bl pioc_dir_set
+  4002f6:	f000 f894 	bl	400422 <pioc_dir_set>
+
+	mov r0, #0
+  4002fa:	f04f 0000 	mov.w	r0, #0
+	mov r1, #21
+  4002fe:	f04f 0115 	mov.w	r1, #21
+	bl pioc_dir_set
+  400302:	f000 f88e 	bl	400422 <pioc_dir_set>
+
+	mov r0, #0
+  400306:	f04f 0000 	mov.w	r0, #0
+	mov r1, #20
+  40030a:	f04f 0114 	mov.w	r1, #20
+	bl pioc_dir_set
+  40030e:	f000 f888 	bl	400422 <pioc_dir_set>
+
+	mov r2, OFF
+  400312:	f04f 0200 	mov.w	r2, #0
+	bl set_r0
+  400316:	f7ff fea5 	bl	400064 <set_r0>
+
+	mov r2, OFF
+  40031a:	f04f 0200 	mov.w	r2, #0
+	bl set_g0
+  40031e:	f7ff fea8 	bl	400072 <set_g0>
+
+	mov r2, OFF
+  400322:	f04f 0200 	mov.w	r2, #0
+	bl set_b0 
+  400326:	f7ff feab 	bl	400080 <set_b0>
+
+	mov r2, OFF
+  40032a:	f04f 0200 	mov.w	r2, #0
+	bl set_r1
+  40032e:	f7ff feae 	bl	40008e <set_r1>
+
+	mov r2,OFF
+  400332:	f04f 0200 	mov.w	r2, #0
+	bl set_g1
+  400336:	f7ff feb1 	bl	40009c <set_g1>
+
+	mov r2,OFF
+  40033a:	f04f 0200 	mov.w	r2, #0
+	bl set_b1 
+  40033e:	f7ff feb4 	bl	4000aa <set_b1>
+
+
+pop {pc}
+  400342:	bd00      	pop	{pc}
+
+00400344 <load_grid>:
+*/
+.thumb_func 
+.global load_grid
+load_grid:
+
+push {r0,r2,r9,r12,lr}
+  400344:	e92d 5205 	stmdb	sp!, {r0, r2, r9, ip, lr}
+ldr r9, = _etext
+  400348:	f8df 9064 	ldr.w	r9, [pc, #100]	; 4003b0 <done+0x2>
+mov r0, #0 
+  40034c:	f04f 0000 	mov.w	r0, #0
+ldr r2, =0x20000000 
+  400350:	f04f 5200 	mov.w	r2, #536870912	; 0x20000000
+
+00400354 <notloaded>:
+notloaded:
+	cmp r0, #512 // (Height/2)*(Width)
+  400354:	f5b0 7f00 	cmp.w	r0, #512	; 0x200
+	beq loaded
+  400358:	d006      	beq.n	400368 <loaded>
+
+	ldrb r12, [r9], #1
+  40035a:	f819 cb01 	ldrb.w	ip, [r9], #1
+	strb r12, [r2], #1
+  40035e:	f802 cb01 	strb.w	ip, [r2], #1
+	add r0, #1
+  400362:	f100 0001 	add.w	r0, r0, #1
+	b notloaded
+  400366:	e7f5      	b.n	400354 <notloaded>
+
+00400368 <loaded>:
+
+loaded:
+pop {r0,r2,r9,r12,pc}
+  400368:	e8bd 9205 	ldmia.w	sp!, {r0, r2, r9, ip, pc}
+
+0040036c <set_pixel>:
+
+*/
+.thumb_func 
+.global set_pixel
+set_pixel:
+push {r0,r1,r2,lr}
+  40036c:	b507      	push	{r0, r1, r2, lr}
+cmp r9, #16
+  40036e:	f1b9 0f10 	cmp.w	r9, #16
+blt case1		// y < 16
+  400372:	db10      	blt.n	400396 <case1>
+sub r0, r9, #16	// y >= 16
+  400374:	f1a9 0010 	sub.w	r0, r9, #16
+mov r1, #32
+  400378:	f04f 0120 	mov.w	r1, #32
+mul r0, r0, r1
+  40037c:	fb00 f001 	mul.w	r0, r0, r1
+add r0, r8
+  400380:	4440      	add	r0, r8
+
+and r1, 0 
+  400382:	f001 0100 	and.w	r1, r1, #0
+orr r1, r10
+  400386:	ea41 010a 	orr.w	r1, r1, sl
+ldr r2, =0x20000000
+  40038a:	f04f 5200 	mov.w	r2, #536870912	; 0x20000000
+lsl r1, r1, #3
+  40038e:	ea4f 01c1 	mov.w	r1, r1, lsl #3
+strb r1, [r2,r0]
+  400392:	5411      	strb	r1, [r2, r0]
+b done
+  400394:	e00b      	b.n	4003ae <done>
+
+00400396 <case1>:
+
+case1: 
+mov r1, #32
+  400396:	f04f 0120 	mov.w	r1, #32
+mul r0, r9, r1
+  40039a:	fb09 f001 	mul.w	r0, r9, r1
+add r0, r8
+  40039e:	4440      	add	r0, r8
+and r1, 0 
+  4003a0:	f001 0100 	and.w	r1, r1, #0
+orr r1, r10
+  4003a4:	ea41 010a 	orr.w	r1, r1, sl
+ldr r2, =0x20000000
+  4003a8:	f04f 5200 	mov.w	r2, #536870912	; 0x20000000
+strb r1, [r2,r0]
+  4003ac:	5411      	strb	r1, [r2, r0]
+
+004003ae <done>:
+
+done:
+pop {r0,r1,r2,pc}
+  4003ae:	bd07      	pop	{r0, r1, r2, pc}
+.thumb_func 
+.global load_grid
+load_grid:
+
+push {r0,r2,r9,r12,lr}
+ldr r9, = _etext
+  4003b0:	0040058c 	.word	0x0040058c
+
+004003b4 <pioa_init>:
+	enable peripheral clock line to PIOC 
+*/
+.thumb_func
+.global pioa_init
+pioa_init:		
+	ldr r0, =(PMC + PCER0)
+  4003b4:	4811      	ldr	r0, [pc, #68]	; (4003fc <end_l+0xe>)
+	mov r1, #1
+  4003b6:	f04f 0101 	mov.w	r1, #1
+	lsl r1, r1, PID11
+  4003ba:	ea4f 21c1 	mov.w	r1, r1, lsl #11
+	str r1, [r0] /* PCER0.bit13 = 1 */
+  4003be:	6001      	str	r1, [r0, #0]
+
+	bx lr
+  4003c0:	4770      	bx	lr
+
+004003c2 <pioa_dir_set>:
+	r1 = IO line (PC1 = 1, PC2 = 2, so forth)
+*/
+.thumb_func
+.global pioa_dir_set
+pioa_dir_set:	
+	cmp r0, OUTPUT_DIR
+  4003c2:	2800      	cmp	r0, #0
+	bne else_d
+  4003c4:	d101      	bne.n	4003ca <else_d>
+	ldr r0, =(PIOA + OER_OFFSET) 
+  4003c6:	480e      	ldr	r0, [pc, #56]	; (400400 <end_l+0x12>)
+	b end_d
+  4003c8:	e000      	b.n	4003cc <end_d>
+
+004003ca <else_d>:
+else_d:
+	ldr r0, =(PIOA + ODR_OFFSET) 
+  4003ca:	480e      	ldr	r0, [pc, #56]	; (400404 <end_l+0x16>)
+
+004003cc <end_d>:
+end_d:
+	mov r2, #1
+  4003cc:	f04f 0201 	mov.w	r2, #1
+	lsl r2, r2, r1			
+  4003d0:	fa02 f201 	lsl.w	r2, r2, r1
+	str r2, [r0]	/* OxR.bitx = 1 */
+  4003d4:	6002      	str	r2, [r0, #0]
+
+004003d6 <enable_writing>:
+enable_writing:
+	ldr r0, =(PIOA + OWER_OFFSET) 
+  4003d6:	480c      	ldr	r0, [pc, #48]	; (400408 <end_l+0x1a>)
+	mov r2, #1
+  4003d8:	f04f 0201 	mov.w	r2, #1
+	lsl r2, r2, r1
+  4003dc:	fa02 f201 	lsl.w	r2, r2, r1
+	str r2, [r0]	/* OWER.bitx = 1 */
+  4003e0:	6002      	str	r2, [r0, #0]
+
+	bx lr
+  4003e2:	4770      	bx	lr
+
+004003e4 <pioa_level_set>:
+	r1 = IO line (PC1 = 1, PC2 = 2, so forth)
+*/
+.thumb_func
+.global pioa_level_set
+pioa_level_set:
+	cmp r0, LEVEL_HIGH
+  4003e4:	2801      	cmp	r0, #1
+	bne else_l
+  4003e6:	d101      	bne.n	4003ec <else_l>
+	ldr r0, =(PIOA + SODR_OFFSET) 
+  4003e8:	4808      	ldr	r0, [pc, #32]	; (40040c <end_l+0x1e>)
+	b end_l
+  4003ea:	e000      	b.n	4003ee <end_l>
+
+004003ec <else_l>:
+else_l:
+	ldr r0, =(PIOA + CODR_OFFSET) 
+  4003ec:	4808      	ldr	r0, [pc, #32]	; (400410 <end_l+0x22>)
+
+004003ee <end_l>:
+end_l:
+	mov r2, #1
+  4003ee:	f04f 0201 	mov.w	r2, #1
+	lsl r2, r2, r1  
+  4003f2:	fa02 f201 	lsl.w	r2, r2, r1
+	str r2, [r0]	/* xODR.bitx = 1 */
+  4003f6:	6002      	str	r2, [r0, #0]
+
+	bx lr
+  4003f8:	4770      	bx	lr
+  4003fa:	0000      	.short	0x0000
+	enable peripheral clock line to PIOC 
+*/
+.thumb_func
+.global pioa_init
+pioa_init:		
+	ldr r0, =(PMC + PCER0)
+  4003fc:	400e0410 	.word	0x400e0410
+.thumb_func
+.global pioa_dir_set
+pioa_dir_set:	
+	cmp r0, OUTPUT_DIR
+	bne else_d
+	ldr r0, =(PIOA + OER_OFFSET) 
+  400400:	400e0e10 	.word	0x400e0e10
+	b end_d
+else_d:
+	ldr r0, =(PIOA + ODR_OFFSET) 
+  400404:	400e0e14 	.word	0x400e0e14
+end_d:
+	mov r2, #1
+	lsl r2, r2, r1			
+	str r2, [r0]	/* OxR.bitx = 1 */
+enable_writing:
+	ldr r0, =(PIOA + OWER_OFFSET) 
+  400408:	400e0ea0 	.word	0x400e0ea0
+.thumb_func
+.global pioa_level_set
+pioa_level_set:
+	cmp r0, LEVEL_HIGH
+	bne else_l
+	ldr r0, =(PIOA + SODR_OFFSET) 
+  40040c:	400e0e30 	.word	0x400e0e30
+	b end_l
+else_l:
+	ldr r0, =(PIOA + CODR_OFFSET) 
+  400410:	400e0e34 	.word	0x400e0e34
+
+00400414 <pioc_init>:
+	enable peripheral clock line to PIOC 
+*/
+.thumb_func
+.global pioc_init
+pioc_init:		
+	ldr r0, =(PMC + PCER0)
+  400414:	4811      	ldr	r0, [pc, #68]	; (40045c <end_l+0xe>)
+	mov r1, #1
+  400416:	f04f 0101 	mov.w	r1, #1
+	lsl r1, r1, PID13
+  40041a:	ea4f 3141 	mov.w	r1, r1, lsl #13
+	str r1, [r0] /* PCER0.bit13 = 1 */
+  40041e:	6001      	str	r1, [r0, #0]
+
+	bx lr
+  400420:	4770      	bx	lr
+
+00400422 <pioc_dir_set>:
+	r1 = IO line (PC1 = 1, PC2 = 2, so forth)
+*/
+.thumb_func
+.global pioc_dir_set
+pioc_dir_set:	
+	cmp r0, OUTPUT_DIR
+  400422:	2800      	cmp	r0, #0
+	bne else_d
+  400424:	d101      	bne.n	40042a <else_d>
+	ldr r0, =(PIOC + OER_OFFSET) 
+  400426:	480e      	ldr	r0, [pc, #56]	; (400460 <end_l+0x12>)
+	b end_d
+  400428:	e000      	b.n	40042c <end_d>
+
+0040042a <else_d>:
+else_d:
+	ldr r0, =(PIOC + ODR_OFFSET) 
+  40042a:	480e      	ldr	r0, [pc, #56]	; (400464 <end_l+0x16>)
+
+0040042c <end_d>:
+end_d:
+	mov r2, #1
+  40042c:	f04f 0201 	mov.w	r2, #1
+	lsl r2, r2, r1			
+  400430:	fa02 f201 	lsl.w	r2, r2, r1
+	str r2, [r0]	/* OxR.bitx = 1 */
+  400434:	6002      	str	r2, [r0, #0]
+
+00400436 <enable_writing>:
+enable_writing:
+	ldr r0, =(PIOC + OWER_OFFSET) 
+  400436:	480c      	ldr	r0, [pc, #48]	; (400468 <end_l+0x1a>)
+	mov r2, #1
+  400438:	f04f 0201 	mov.w	r2, #1
+	lsl r2, r2, r1
+  40043c:	fa02 f201 	lsl.w	r2, r2, r1
+	str r2, [r0]	/* OWER.bitx = 1 */
+  400440:	6002      	str	r2, [r0, #0]
+
+	bx lr
+  400442:	4770      	bx	lr
+
+00400444 <pioc_level_set>:
+	r1 = IO line (PC1 = 1, PC2 = 2, so forth)
+*/
+.thumb_func
+.global pioc_level_set
+pioc_level_set:
+	cmp r0, LEVEL_HIGH
+  400444:	2801      	cmp	r0, #1
+	bne else_l
+  400446:	d101      	bne.n	40044c <else_l>
+	ldr r0, =(PIOC + SODR_OFFSET) 
+  400448:	4808      	ldr	r0, [pc, #32]	; (40046c <end_l+0x1e>)
+	b end_l
+  40044a:	e000      	b.n	40044e <end_l>
+
+0040044c <else_l>:
+else_l:
+	ldr r0, =(PIOC + CODR_OFFSET) 
+  40044c:	4808      	ldr	r0, [pc, #32]	; (400470 <end_l+0x22>)
+
+0040044e <end_l>:
+end_l:
+	mov r2, #1
+  40044e:	f04f 0201 	mov.w	r2, #1
+	lsl r2, r2, r1  
+  400452:	fa02 f201 	lsl.w	r2, r2, r1
+	str r2, [r0]	/* xODR.bitx = 1 */
+  400456:	6002      	str	r2, [r0, #0]
+
+	bx lr
+  400458:	4770      	bx	lr
+  40045a:	0000      	.short	0x0000
+	enable peripheral clock line to PIOC 
+*/
+.thumb_func
+.global pioc_init
+pioc_init:		
+	ldr r0, =(PMC + PCER0)
+  40045c:	400e0410 	.word	0x400e0410
+.thumb_func
+.global pioc_dir_set
+pioc_dir_set:	
+	cmp r0, OUTPUT_DIR
+	bne else_d
+	ldr r0, =(PIOC + OER_OFFSET) 
+  400460:	400e1210 	.word	0x400e1210
+	b end_d
+else_d:
+	ldr r0, =(PIOC + ODR_OFFSET) 
+  400464:	400e1214 	.word	0x400e1214
+end_d:
+	mov r2, #1
+	lsl r2, r2, r1			
+	str r2, [r0]	/* OxR.bitx = 1 */
+enable_writing:
+	ldr r0, =(PIOC + OWER_OFFSET) 
+  400468:	400e12a0 	.word	0x400e12a0
+.thumb_func
+.global pioc_level_set
+pioc_level_set:
+	cmp r0, LEVEL_HIGH
+	bne else_l
+	ldr r0, =(PIOC + SODR_OFFSET) 
+  40046c:	400e1230 	.word	0x400e1230
+	b end_l
+else_l:
+	ldr r0, =(PIOC + CODR_OFFSET) 
+  400470:	400e1234 	.word	0x400e1234
+
+00400474 <register_fini>:
+  400474:	4b02      	ldr	r3, [pc, #8]	; (400480 <register_fini+0xc>)
+  400476:	b113      	cbz	r3, 40047e <register_fini+0xa>
+  400478:	4802      	ldr	r0, [pc, #8]	; (400484 <register_fini+0x10>)
+  40047a:	f000 b805 	b.w	400488 <atexit>
+  40047e:	4770      	bx	lr
+  400480:	00000000 	.word	0x00000000
+  400484:	00400495 	.word	0x00400495
+
+00400488 <atexit>:
+  400488:	2300      	movs	r3, #0
+  40048a:	4601      	mov	r1, r0
+  40048c:	461a      	mov	r2, r3
+  40048e:	4618      	mov	r0, r3
+  400490:	f000 b814 	b.w	4004bc <__register_exitproc>
+
+00400494 <__libc_fini_array>:
+  400494:	b538      	push	{r3, r4, r5, lr}
+  400496:	4d07      	ldr	r5, [pc, #28]	; (4004b4 <__libc_fini_array+0x20>)
+  400498:	4c07      	ldr	r4, [pc, #28]	; (4004b8 <__libc_fini_array+0x24>)
+  40049a:	1b2c      	subs	r4, r5, r4
+  40049c:	10a4      	asrs	r4, r4, #2
+  40049e:	d005      	beq.n	4004ac <__libc_fini_array+0x18>
+  4004a0:	3c01      	subs	r4, #1
+  4004a2:	f855 3d04 	ldr.w	r3, [r5, #-4]!
+  4004a6:	4798      	blx	r3
+  4004a8:	2c00      	cmp	r4, #0
+  4004aa:	d1f9      	bne.n	4004a0 <__libc_fini_array+0xc>
+  4004ac:	e8bd 4038 	ldmia.w	sp!, {r3, r4, r5, lr}
+  4004b0:	f000 b864 	b.w	40057c <_fini>
+  4004b4:	0040058c 	.word	0x0040058c
+  4004b8:	00400588 	.word	0x00400588
+
+004004bc <__register_exitproc>:
+  4004bc:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
+  4004c0:	4c25      	ldr	r4, [pc, #148]	; (400558 <__register_exitproc+0x9c>)
+  4004c2:	6825      	ldr	r5, [r4, #0]
+  4004c4:	f8d5 4148 	ldr.w	r4, [r5, #328]	; 0x148
+  4004c8:	4606      	mov	r6, r0
+  4004ca:	4688      	mov	r8, r1
+  4004cc:	4692      	mov	sl, r2
+  4004ce:	4699      	mov	r9, r3
+  4004d0:	b3c4      	cbz	r4, 400544 <__register_exitproc+0x88>
+  4004d2:	6860      	ldr	r0, [r4, #4]
+  4004d4:	281f      	cmp	r0, #31
+  4004d6:	dc17      	bgt.n	400508 <__register_exitproc+0x4c>
+  4004d8:	1c43      	adds	r3, r0, #1
+  4004da:	b176      	cbz	r6, 4004fa <__register_exitproc+0x3e>
+  4004dc:	eb04 0580 	add.w	r5, r4, r0, lsl #2
+  4004e0:	2201      	movs	r2, #1
+  4004e2:	f8c5 a088 	str.w	sl, [r5, #136]	; 0x88
+  4004e6:	f8d4 1188 	ldr.w	r1, [r4, #392]	; 0x188
+  4004ea:	4082      	lsls	r2, r0
+  4004ec:	4311      	orrs	r1, r2
+  4004ee:	2e02      	cmp	r6, #2
+  4004f0:	f8c4 1188 	str.w	r1, [r4, #392]	; 0x188
+  4004f4:	f8c5 9108 	str.w	r9, [r5, #264]	; 0x108
+  4004f8:	d01e      	beq.n	400538 <__register_exitproc+0x7c>
+  4004fa:	3002      	adds	r0, #2
+  4004fc:	6063      	str	r3, [r4, #4]
+  4004fe:	f844 8020 	str.w	r8, [r4, r0, lsl #2]
+  400502:	2000      	movs	r0, #0
+  400504:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
+  400508:	4b14      	ldr	r3, [pc, #80]	; (40055c <__register_exitproc+0xa0>)
+  40050a:	b303      	cbz	r3, 40054e <__register_exitproc+0x92>
+  40050c:	f44f 70c8 	mov.w	r0, #400	; 0x190
+  400510:	f3af 8000 	nop.w
+  400514:	4604      	mov	r4, r0
+  400516:	b1d0      	cbz	r0, 40054e <__register_exitproc+0x92>
+  400518:	f8d5 3148 	ldr.w	r3, [r5, #328]	; 0x148
+  40051c:	2700      	movs	r7, #0
+  40051e:	e880 0088 	stmia.w	r0, {r3, r7}
+  400522:	f8c5 4148 	str.w	r4, [r5, #328]	; 0x148
+  400526:	4638      	mov	r0, r7
+  400528:	2301      	movs	r3, #1
+  40052a:	f8c4 7188 	str.w	r7, [r4, #392]	; 0x188
+  40052e:	f8c4 718c 	str.w	r7, [r4, #396]	; 0x18c
+  400532:	2e00      	cmp	r6, #0
+  400534:	d0e1      	beq.n	4004fa <__register_exitproc+0x3e>
+  400536:	e7d1      	b.n	4004dc <__register_exitproc+0x20>
+  400538:	f8d4 118c 	ldr.w	r1, [r4, #396]	; 0x18c
+  40053c:	430a      	orrs	r2, r1
+  40053e:	f8c4 218c 	str.w	r2, [r4, #396]	; 0x18c
+  400542:	e7da      	b.n	4004fa <__register_exitproc+0x3e>
+  400544:	f505 74a6 	add.w	r4, r5, #332	; 0x14c
+  400548:	f8c5 4148 	str.w	r4, [r5, #328]	; 0x148
+  40054c:	e7c1      	b.n	4004d2 <__register_exitproc+0x16>
+  40054e:	f04f 30ff 	mov.w	r0, #4294967295
+  400552:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
+  400556:	bf00      	nop
+  400558:	00400564 	.word	0x00400564
+  40055c:	00000000 	.word	0x00000000
+  400560:	00000043 	.word	0x00000043
+
+00400564 <_global_impure_ptr>:
+  400564:	20000400                                ... 
+
+00400568 <_init>:
+  400568:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+  40056a:	bf00      	nop
+  40056c:	bcf8      	pop	{r3, r4, r5, r6, r7}
+  40056e:	bc08      	pop	{r3}
+  400570:	469e      	mov	lr, r3
+  400572:	4770      	bx	lr
+
+00400574 <__init_array_start>:
+  400574:	00400475 	.word	0x00400475
+
+00400578 <__frame_dummy_init_array_entry>:
+  400578:	0040002d                                -.@.
+
+0040057c <_fini>:
+  40057c:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+  40057e:	bf00      	nop
+  400580:	bcf8      	pop	{r3, r4, r5, r6, r7}
+  400582:	bc08      	pop	{r3}
+  400584:	469e      	mov	lr, r3
+  400586:	4770      	bx	lr
+
+00400588 <__fini_array_start>:
+  400588:	00400009 	.word	0x00400009
