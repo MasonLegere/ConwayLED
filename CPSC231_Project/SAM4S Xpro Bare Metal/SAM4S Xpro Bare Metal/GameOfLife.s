@@ -40,25 +40,26 @@ bl init
 bl load_grid
 mov r6, #0 // {r0} must be set to zero at the start
 
+// Blinker (period 2)
+/*=======================================================*/
 mov r8, #4
 mov r9, #25
 mov r10, #1
 bl set_pixel
-
 
 mov r8, #5
 mov r9, #25
 mov r10, #1
 bl set_pixel
 
-
-
 mov r8, #6
 mov r9, #25
 mov r10, #1
 bl set_pixel
+/*=======================================================*/
 
-/*
+// Penta-decathlon (period 15)
+/*=======================================================*/
 mov r8, #15
 mov r9, #15
 mov r10, #1
@@ -107,8 +108,142 @@ bl set_pixel
 mov r8, #16
 mov r9, #18
 mov r10, #1
-bl set_pixel*/
+bl set_pixel
 
+mov r8, #17
+mov r9, #18
+mov r10, #1
+bl set_pixel
+
+mov r8, #15
+mov r9, #19
+mov r10, #1
+bl set_pixel
+
+mov r8, #16
+mov r9, #19
+mov r10, #1
+bl set_pixel
+
+mov r8, #17
+mov r9, #19
+mov r10, #1
+bl set_pixel
+
+mov r8, #15
+mov r9, #20
+mov r10, #1
+bl set_pixel
+
+mov r8, #16
+mov r9, #20
+mov r10, #1
+bl set_pixel
+
+mov r8, #17
+mov r9, #20
+mov r10, #1
+bl set_pixel
+
+mov r8, #15
+mov r9, #21
+mov r10, #1
+bl set_pixel
+
+mov r8, #17
+mov r9, #21
+mov r10, #1
+bl set_pixel
+
+mov r8, #15
+mov r9, #22
+mov r10, #1
+bl set_pixel
+
+
+mov r8, #16
+mov r9, #22
+mov r10, #1
+bl set_pixel
+
+mov r8, #17
+mov r9, #22
+mov r10, #1
+bl set_pixel
+/*=======================================================*/
+
+
+//Glider (space ship)
+/*=======================================================*/
+mov r8, #1
+mov r9, #1
+mov r10, #1
+bl set_pixel
+
+mov r8, #3
+mov r9, #1
+mov r10, #1
+bl set_pixel
+
+mov r8, #2
+mov r9, #2
+mov r10, #1
+bl set_pixel
+
+mov r8, #3
+mov r9, #2
+mov r10, #1
+bl set_pixel
+
+mov r8, #2
+mov r9, #3
+mov r10, #1
+bl set_pixel
+/*=======================================================*/
+// Block (still life)
+/*=======================================================*/
+mov r8, #25
+mov r9, #3
+mov r10, #1
+bl set_pixel
+
+mov r8, #26
+mov r9, #3
+mov r10, #1
+bl set_pixel
+
+mov r8, #25
+mov r9, #4
+mov r10, #1
+bl set_pixel
+
+mov r8, #26
+mov r9, #4
+mov r10, #1
+bl set_pixel
+/*=======================================================*/
+
+/*=======================================================*/
+mov r8, #5
+mov r9, #15
+mov r10, #1
+bl set_pixel
+
+mov r8, #6
+mov r9, #16
+mov r10, #1
+bl set_pixel
+
+mov r8, #5
+mov r9, #17
+mov r10, #1
+bl set_pixel
+
+mov r8, #4
+mov r9, #16
+mov r10, #1
+bl set_pixel
+/*=======================================================*/
 update_grid:
 cmp r6, #0
 beq set_to_1
@@ -306,7 +441,7 @@ update_loop1: /////////////////////////////////////////
 				b  end_of_loop
 
 				dead_eq3: 
-					mov r8, r3
+					mov r8, r3 
 					mov r9, r0
 					mov r10, 1
 					bl set_pixel
