@@ -257,7 +257,7 @@ bl update
 
 
 main2:
-mov r11, 0xFF
+mov r11, 0xFF //the framerate of the board
 cmp r12, r11
 beq update_grid
 add r12, #1
