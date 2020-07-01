@@ -6,7 +6,7 @@ Conway's Game of Life is a cellular automaton determined completely by an initia
 2. Any dead cell with three live neighbours becomes a live cell.
 3. All other live cells die in the next generation. Similarly, all other dead cells stay dead.
 
-![Alt Text](https://gph.is/g/ZOkMljy)
+![Gif](https://giphy.com/gifs/d7SnByEMkrdeoVQ2lT/html5)
 
 The goal of this project was to increase understanding of the internals of a computer through progamming 
 complex features in ARM assembly. 
