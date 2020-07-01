@@ -6,7 +6,7 @@ Conway's Game of Life is a cellular automaton determined completely by an initia
 2. Any dead cell with three live neighbours becomes a live cell.
 3. All other live cells die in the next generation. Similarly, all other dead cells stay dead.
 
-<iframe src="https://giphy.com/embed/d7SnByEMkrdeoVQ2lT" width="480" height="346" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/game-of-life-cellular-automata-john-conway-d7SnByEMkrdeoVQ2lT">via GIPHY</a></p>
+![Game of Life](demo/GameOfLife.gif)
 
 
 The goal of this project was to increase understanding of the internals of a computer through progamming 
